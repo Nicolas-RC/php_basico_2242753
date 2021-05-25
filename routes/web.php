@@ -69,3 +69,8 @@ Route::get("paises", function(){
     // Llevar el arreglo a la vista paises.blade.php
     return view('paises')->with("pais", $paises);
 });
+
+//Mostrar vista metabuscador
+Route::get('mostrarForm', 'MetabuscadorController@mostrarForm');
+
+Route::post('buscarTermino', 'MetabuscadorController@buscarTermino');
