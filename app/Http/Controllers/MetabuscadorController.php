@@ -13,7 +13,7 @@ class MetabuscadorController extends Controller
 
     //Realizar búsqueda por motor
     public function buscarTermino(){
-        //Buscar termino ingresado
+        //Definir variables y almacenar lo que se trae del metabuscador.blade.php
         $termino = $_POST['termino'];
         $motor = $_POST['motores'];
 
