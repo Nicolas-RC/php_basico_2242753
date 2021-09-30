@@ -11,10 +11,14 @@ class MediaType extends Model
     protected $primaryKey = "MediaTypeId";
     public $timestamps = false;
 
-    public function formato() {
+    // Permitir la carga masiva desde archivos Excel
+    protected $guarded = [];
+
+    public function formato()
+    {
         // Método hasMany(), tiene 2 parámetros:
         // 1. Modelo a relacionar
         // 2. Llave foránea, FK de Artista (1) en los albumes (M)
-        return $this -> hasMany("App\Track", "MediaTypeId");
+        return $this->hasMany("App\Track", "MediaTypeId");
     }
 }

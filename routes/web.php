@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,3 +77,52 @@ Route::get("paises", function(){
 Route::get('mostrarForm', 'MetabuscadorController@mostrarForm');
 
 Route::post('buscarTermino', 'MetabuscadorController@buscarTermino');
+
+//Definir rutas REST para el controlador CustomerController
+Route::resource('customer', 'CustomerController')->middleware('authRockstar');
+
+//Definir rutas REST para el controlador EmpleadoControler
+Route::resource('employee', 'EmpleadoControler')->middleware('authRockstar');
+
+//Definir ruta para la plantilla
+Route::get('template', function(){
+    return view('templates.template');
+});
+
+//Ruta para habilitar o deshabilitar un cliente
+Route::get('customer/{idCustomer}/enable', 'CustomerController@enable')->middleware('authRockstar');
+
+//Ruta para habilitar o deshabilitar un empleado
+Route::get('employee/{idEmployee}/enable', 'EmpleadoControler@enable')->middleware('authRockstar');
+
+//Ruta para habilitar o deshabilitar un usuario
+Route::get('users/{idUser}/enable', 'UserController@enable')->middleware('authRockstar');
+
+//Definir rutas REST para el controlador UserController
+Route::resource('users', 'UserController')->middleware('authRockstar');
+
+// Definir rutas de autenticación
+Route::get('login', 'Auth\LoginController@form');
+Route::post('login', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout');
+
+// Ruta para el envío de correo electrónico
+Route::get('testemail', function(){
+
+    $details = ["Sendby" => "Nicolas Rosero"];
+
+    Mail::to('nrosero93@misena.edu.co')->send(new TestMail($details));
+    die('Email sent');
+});
+
+// Rutas para el cambio de contraseña
+Route::get("changepassword", "Auth\ResetPasswordController@emailForm");
+Route::post("sendlink", "Auth\ResetPasswordController@submitLink");
+Route::get("resetpassword/{token}", "Auth\ResetPasswordController@viewChange");
+Route::post("resetpassword", "Auth\ResetPasswordController@changePassword");
+
+// Rutas REST para importar archivos Excel
+Route::resource('mediatype', 'MediaTypeController')->only(['create', 'store'])->middleware('authRockstar');
+
+// Ruta para crear un informe
+Route::get('reportpdf', 'PDFController@informe')->middleware('authRockstar');
