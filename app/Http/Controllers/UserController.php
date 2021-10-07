@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use Illuminate\Support\Facades\Mail;
+// Correo
+use App\Mail\ChagePasswordMail;
 
 class UserController extends Controller
 {
@@ -26,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $Users = User::paginate(10);
+        $Users = User::paginate(6);
         return view("users.index")->with('Users', $Users);
     }
 
@@ -48,11 +51,20 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+
+        // Traer le máximo ID que este en la tabla cliente
+        $maxId = User::all()->max('id');
+        $maxId++;
+
         $user = new User();
         $user->name = $request->input('username');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
         $user->save();
+
+        //Enviar el correo para el cambio de contraseña
+        Mail::to($request->input('email'))->send(new ChagePasswordMail($maxId));
+
         return redirect('users')->with('message', 'Registered user');
     }
 

@@ -32,23 +32,30 @@ class PDFController extends Controller
 
         // Crear un objeto que representa un documento PDF
         $pdf = app('Fpdf');
-        $pdf->AddPage();
+        $pdf->AddPage('P', 'Legal');
+        $pdf->Image('../public/assets/eddie.png', 90, 300, 40, 38,'PNG');
         $pdf->SetFont('Arial','B',22);
-        $pdf->Cell(191,10, 'Number of tracks per category', '', 0, 'C');
+        $pdf->setTextColor(73, 73, 73);
+        $pdf->Cell(205, 10, 'Number of tracks per category', '', 0, 'C');
 
         // Establecer coordenadas de contenido del encabezado de la tabla
-        $pdf->setXY(35, 30);
+        $pdf->setXY(41, 30);
 
         // Nueva sección del documento
         // Celda de generos
         $pdf->setFont('Arial', 'B', 14);
+        $pdf->setTextColor(245, 106, 26);
+        $pdf->setFillColor(178, 178, 178);
         $pdf->cell(70, 10, 'Genre', 'TBR', 0, 'C');
         // Celda de canciones
+        $pdf->setFont('Arial', '', 14);
+        $pdf->setTextColor(250, 199, 51);
         $pdf->cell(70, 10, 'Tracks', 'TB', 1, 'C');
         // Celdas de contenido de los generos y el número de canciones
+        $pdf->setTextColor(118, 118, 118);
         $pdf->setFont('Arial', '', 12);
         foreach($genre as $genero) {
-            $pdf->setX(35);
+            $pdf->setX(41);
             $pdf->cell(70, 10, $genero->Genre_name, 'TB', 0, 'C');
             $pdf->cell(70, 10, $genero->tracksXgenre, 'TB', 1, 'C');
         }

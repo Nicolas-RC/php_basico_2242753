@@ -109,7 +109,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 // Ruta para el envío de correo electrónico
 Route::get('testemail', function(){
 
-    $details = ["Sendby" => "Nicolas Rosero"];
+    $details = ["Sendby" => "Nicolas Rosero 😎"];
 
     Mail::to('nrosero93@misena.edu.co')->send(new TestMail($details));
     die('Email sent');
@@ -120,6 +120,10 @@ Route::get("changepassword", "Auth\ResetPasswordController@emailForm");
 Route::post("sendlink", "Auth\ResetPasswordController@submitLink");
 Route::get("resetpassword/{token}", "Auth\ResetPasswordController@viewChange");
 Route::post("resetpassword", "Auth\ResetPasswordController@changePassword");
+
+// Rutas para cambio de contraseña cuando se crea un usuario
+Route::get('chagePassword/{idUser}', 'ChangePasswordUserController@vistaCambiarPass');
+Route::post('chagePassword/{idUser}', 'ChangePasswordUserController@cambiarContrasena');
 
 // Rutas REST para importar archivos Excel
 Route::resource('mediatype', 'MediaTypeController')->only(['create', 'store'])->middleware('authRockstar');

@@ -75,6 +75,6 @@ class ResetPasswordController extends Controller
 
         echo "Cambio de password con exito";
 
-        // 3. Eliminar el regsitro del token utilizado en pla tabla password_resets
+        // 3. Eliminar el registro del token utilizado en la tabla password_resets
     }
 }
