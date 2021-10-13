@@ -23,7 +23,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ url('employee') }}"><i class="fas fa-user-tie"></i> Employee</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ url('users') }}"><i class="fas fa-users"></i> Users</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ url('mediatype/create') }}"><i class="fas fa-upload"></i> Upload media types</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ url('reportpdf') }}"><i class="far fa-file-alt"></i> Report</a>
+                    <button class="list-group-item list-group-item-action list-group-item-light p-3" id="pdf"><i class="far fa-file-alt"></i> Report</button>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -52,5 +52,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ asset('js/scripts.js') }}"></script>
+        <!-- Script for this page -->
+        <script src="{{ asset('js/report_pdf.js') }}"></script>
     </body>
 </html>
